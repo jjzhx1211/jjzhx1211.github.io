@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>蒋卓轩｜上海商学院</title>
+  <meta name="description" content="蒋卓轩的个人学术主页 - 人工智能与机器学习方向" />
+  <style>
+    /* ===== 基础设置 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --text: #111;
+      --text-light: #555;
+      --muted: #888;
+      --line: #ddd;
+      --bg: #fff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 64px;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 56px 0;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* ===== 顶部导航 ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      max-width: 1100px;
+    }
+
+    .nav-brand {
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .nav-lang {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ===== 个人主页头部 ===== */
+    .profile {
+      padding: 100px 0 40px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-inner {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-placeholder {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #eee;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: var(--muted);
+    }
+
+    .profile h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .profile .role {
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .profile .bio {
+      font-size: 0.95rem;
+      color: var(--text);
+      max-width: 700px;
+    }
+
+    .profile .meta {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .profile .meta a {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    /* ===== 研究方向 ===== */
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .interest {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 4px 14px;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: #fafafa;
+    }
+
+    .interest:hover {
+      background: #f0f0f0;
+    }
+
+    /* ===== 论文列表 ===== */
+    .pub-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .filter-btn {
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .filter-btn.active {
+      color: var(--text);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .pub-list {
+      list-style: none;
+    }
+
+    .pub-list p {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .pub-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pub-item:last-child {
+      border-bottom: none;
+    }
+
+    .pub-title {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .pub-authors {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .pub-authors .me {
+      text-decoration: underline;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .pub-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .pub-meta .venue {
+      font-style: italic;
+    }
+
+    .pub-tag {
+      margin-left: 8px;
+      color: var(--text-light);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 0 8px;
+      font-size: 0.78rem;
+    }
+
+    .no-pubs {
+      color: var(--text-light);
+      padding: 24px 0;
+      display: none;
+    }
+
+    /* ===== 教学 ===== */
+    .course {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .course:last-child {
+      border-bottom: none;
+    }
+
+    .course h3 {
+      font-size: 1.05rem;
+      margin-bottom: 2px;
+    }
+
+    .course .course-meta {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .course p {
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    /* ===== 审稿 / 学术服务 ===== */
+    .review-year {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .review-year:last-child {
+      border-bottom: none;
+    }
+
+    .review-year h3 {
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .review-year p {
+      font-size: 0.92rem;
+      margin-bottom: 2px;
+    }
+
+    .review-year a {
+      text-decoration: underline;
+    }
+
+    /* ===== 联系方式 ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-item {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .contact-item .label {
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .contact-item a {
+      text-decoration: underline;
+    }
+
+    .contact-links {
+      margin-top: 8px;
+    }
+
+    .contact-links a {
+      margin-right: 16px;
+      text-decoration: underline;
+      font-size: 0.92rem;
+    }
+
+    .contact-form h3 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--bg);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #999;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+      padding: 8px 24px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #333;
+      text-decoration: none;
+    }
+
+    .form-status {
+      display: none;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #2c6e49;
+    }
+
+    /* ===== 页脚 ===== */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* ===== 返回顶部 ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      font-family: inherit;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: #f0f0f0;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 700px) {
+      .profile-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .avatar,
+      .avatar-placeholder {
+        margin: 0 auto;
+      }
+
+      .profile .bio,
+      .profile .meta {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--bg);
+        padding: 12px 24px;
+        gap: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .pub-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== 顶部导航 ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#top" class="nav-brand">蒋卓轩</a>
+      <button class="nav-toggle" id="navToggle" aria-label="切换菜单">☰ 菜单</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="active">关于</a></li>
+        <!-- <li><a href="#research">研究方向</a></li> -->
+        <li><a href="#publications">论文</a></li>
+        <li><a href="#teaching">教学</a></li>
+        <li><a href="#reviewer">学术服务</a></li>
+        <!-- <li><a href="#contact">联系</a></li> -->
+        <li><a href="index-en.html" class="nav-lang">English</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== 个人头像与简介 ===== -->
+  <header class="profile" id="top">
+    <div class="container profile-inner">
+      <div>
+        <!-- 替换为照片：<img class="avatar" src="your-photo.jpg" alt="蒋卓轩" /> -->
+        <div class="avatar-placeholder">蒋</div>
+      </div>
+      <div>
+        <h1>蒋卓轩</h1>
+        <p class="role">讲师 / 研究员 · 硕士生导师 · 上海商学院 商务信息学院</p>
+        <p class="bio">
+          研究方向为人工智能、机器学习与自然语言处理，并应用于教育、商务流程管理与具身应用等场景。
+        </p>
+        <p class="meta">
+          邮箱：<a href="mailto:jzx@sbs.edu.cn">jzx AT sbs.edu.cn</a><br />
+          地址：上海市奉贤区东方美谷路 6333 号 行政楼 518 室
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 关于 ===== -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">关于</h2>
+      <p>
+        2018 年于北京大学获得理学博士学位，2016–2017 年在南洋理工大学担任访问学生，先后在 IBM 中国研究院（2018–2020）、京东 AI 研究院（2020–2021）、腾讯优图实验室（2021–2022）、Learnable.ai（初创公司，2022–2024）工作，2024 年入职上海商学院。
+      </p>
+      <p style="margin-top: 12px;">
+        课题组欢迎硕士与本科同学加入。如果你对<u>大语言模型</u>、<u>智能体 AI</u>、<u>具身智能</u>及其<u>应用</u>充满热情，欢迎邮件联系。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 研究方向 ===== -->
+  <!-- <section id="research">
+    <div class="container">
+      <h2 class="section-title">研究方向</h2>
+      <div class="interests">
+        <span class="interest">深度学习</span>
+        <span class="interest">机器学习</span>
+        <span class="interest">自然语言处理</span>
+        <span class="interest">计算机视觉</span>
+        <span class="interest">医学影像智能分析</span>
+        <span class="interest">图学习</span>
+        <span class="interest">高效模型与推理</span>
+      </div>
+      <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 16px;">
+        具体方向包括：深度神经网络理论与优化、预训练语言模型、小样本/迁移学习、视觉-语言多模态理解、医学影像辅助诊断、模型压缩与量化等。
+      </p>
+    </div>
+  </section> -->
+
+  <!-- ===== 论文 ===== -->
+  <section id="publications">
+    <div class="container">
+      <h2 class="section-title">代表论文</h2>
+      <!-- <div class="pub-toolbar">
+        <div>
+          <button class="filter-btn active" data-filter="all">全部</button><span style="color: var(--line);">|</span>
+          <button class="filter-btn" data-filter="journal">期刊</button><span style="color: var(--line);">|</span>
+          <button class="filter-btn" data-filter="conference">会议</button><span style="color: var(--line);">|</span>
+          <button class="filter-btn" data-filter="preprint">预印本</button>
+        </div>
+        <div>
+          排序：
+          <select id="sortSelect" style="background: none; border: none; font-family: inherit; font-size: 0.9rem; color: var(--text-light); cursor: pointer;">
+            <option value="year-desc">年份（最近优先）</option>
+            <option value="year-asc">年份（最早优先）</option>
+            <option value="title">标题</option>
+          </select>
+        </div>
+      </div> -->
+      <ul class="pub-list" id="pubList">
+        <p>[1] Zhuoxuan Jiang, Tianyang Zhang, Shengguang Bai, Lin Lin, Haotian Zhang, Yinong Xun, Jiawei Ren, Wen Si, Shaohua Zhang. Expert Systems with Applications, 130961, 2026</p>
+        <p>[2] Zhuoxuan Jiang, Yanpeng Li, Tianyang Zhang, Jing Chen, Yong Li, Mo Guang, Wen Si, Shaohua Zhang. GeoProblem Factory: A Visual Interaction System for Solvable and Controllable Geometric Problem Generation by Leveraging Symbolic Deduction Engine. AAAI 2026. (CCF-A)</p>
+        <p>[3] Zhuoxuan Jiang*, Tianyang Zhang, Peiyan Peng, Jing Chen, Yinong Xun, Haotian Zhang, Lichi Li, Yong Li, Shaohua Zhang. Towards Generating Controllable and Solvable Geometry Problem by Leveraging Symbolic Deduction Engine. ACL 2025. (CCF-A)</p>
+        <p>[4] Zhuoxuan Jiang*, Tianyang Zhang, Haotian Zhang, Yinong Xun, Yang Liu, Dehua Feng, Wen Si, and Shaohua Zhang. LLMA4ITOps: A Lightweight LLM-based Multi-Agent Framework for IT Operations and Maintenance. NLPCC 2025. (CCF-C).</p>
+        <p>[5] Tianyang Zhang, Zhuoxuan Jiang*, Haotian Zhang, Lin Lin, Shaohua Zhang. MathMistake Checker: A Comprehensive Demonstration for Step-by-Step Math Problem Mistake Finding by Prompt-Guided LLMs. AAAI 2025. (CCF-A)</p>
+        <p>[6] Tianyang Zhang, Zhuoxuan Jiang*, Shengguang Bai, Tianrui Zhang, Lin Lin, Yang Liu, Jiawei Ren. RAG4ITOps: A Supervised Fine-Tunable and Comprehensive RAG Framework for IT Operations and Maintenance. EMNLP 2024. (CCF-B)</p>
+        <p>[7] Zhuoxuan Jiang*, Haoyuan Peng, Shanshan Feng, Fan Li, Dongsheng Li. LLMs can Find Mathematical Reasoning Mistakes by Pedagogical Chain-of-Thought. IJCAI 2024. (CCF-A)</p>
+        <p>[8] Ziming Huang, Zhuoxuan Jiang*, Ke Wang, Juntao Li, Shanshan Feng, Xian-Ling Mao. Gated Mechanism enhanced Multi-task Learning for Dialog Routing. COLING 2022. (CCF-B)</p>
+        <p>[9] Yuan Liang, Zhuoxuan Jiang, Di Yin, Bo Ren. RAAT: Relation-Augmented Attention Transformer for Relation Modeling in Document-Level Event Extraction. NAACL 2022. (CCF-B)</p>
+        <p>[10] Sanshi Yu, Zhuoxuan Jiang*, Dongdong Chen, Shanshan Feng, Dongsheng Li, Qi Liu, Jinfeng Yi. Leveraging Tripartite Interaction Information from Live Stream E-Commerce for Improving Product Recommendation. KDD 2021. (CCF-A)</p>
+        <p>[11] Zhuoxuan Jiang, Shanshan Feng, Gao Cong, Chunyan Miao, Xiaoming Li. A Novel Cascade Model for Learning Latent Similarity from Heterogeneous Sequential Data of MOOC. EMNLP 2017. (CCF-B)</p>
+        <p>[12] Zhuoxuan Jiang, Yan Zhang, Xiaoming Li. Learning behavior analysis and prediction based on MOOC data, Journal of computer research and development 52 (3), 614-628</p>
+        <p>*通讯作者</p>
+        <!-- <li class="pub-item" data-year="2025" data-type="conference" data-title="Adaptive Memory">
+          <span class="pub-title"><a href="#">Adaptive Memory-Augmented Transformers for Long-Context Reasoning</a></span>
+          <p class="pub-authors"><span class="me">Zhang San</span>, Li Si, Wang Wu</p>
+          <p class="pub-meta"><span class="venue">NeurIPS 2025</span><span class="pub-tag">会议</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2025" data-type="journal" data-title="Federated Medical">
+          <span class="pub-title"><a href="#">Federated Medical Image Segmentation via Dynamic Client Adaptation</a></span>
+          <p class="pub-authors">Zhao Liu, <span class="me">Zhang San</span>, Qian Zhou</p>
+          <p class="pub-meta"><span class="venue">IEEE Transactions on Medical Imaging, 2025</span><span class="pub-tag">期刊</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2024" data-type="conference" data-title="Contrastive">
+          <span class="pub-title"><a href="#">Contrastive Learning for Low-Resource Machine Translation</a></span>
+          <p class="pub-authors"><span class="me">Zhang San</span>, Wei Chen, Yi Sun</p>
+          <p class="pub-meta"><span class="venue">ACL 2024</span><span class="pub-tag">会议</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2024" data-type="journal" data-title="GNN Graph">
+          <span class="pub-title"><a href="#">Graph Neural Networks with Learnable Structural Priors</a></span>
+          <p class="pub-authors">Wang Wu, <span class="me">Zhang San</span>, Lin Zhao</p>
+          <p class="pub-meta"><span class="venue">IEEE TKDE, 2024</span><span class="pub-tag">期刊</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2024" data-type="preprint" data-title="Scaling Law">
+          <span class="pub-title"><a href="#">Scaling Laws for Sparse Mixture-of-Experts Language Models</a></span>
+          <p class="pub-authors"><span class="me">Zhang San</span>, Li Si, Chen Wei, Wang Wu</p>
+          <p class="pub-meta"><span class="venue">arXiv:2410.xxxxx</span><span class="pub-tag">预印本</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2023" data-type="conference" data-title="Vision Language">
+          <span class="pub-title"><a href="#">Bridging Vision and Language with Unified Attention</a></span>
+          <p class="pub-authors">Qian Zhou, <span class="me">Zhang San</span>, Zhao Liu</p>
+          <p class="pub-meta"><span class="venue">CVPR 2023</span><span class="pub-tag">会议</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2023" data-type="journal" data-title="Interpretable">
+          <span class="pub-title"><a href="#">Interpretable Diagnosis via Attention-Guided Chest X-Ray Analysis</a></span>
+          <p class="pub-authors"><span class="me">Zhang San</span>, Yi Sun, Wei Chen, Lin Zhao</p>
+          <p class="pub-meta"><span class="venue">Pattern Recognition, 2023</span><span class="pub-tag">期刊</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2022" data-type="conference" data-title="Meta Learning">
+          <span class="pub-title"><a href="#">Meta-Learning with Task-Adaptive Representations</a></span>
+          <p class="pub-authors">Li Si, <span class="me">Zhang San</span>, Wang Wu</p>
+          <p class="pub-meta"><span class="venue">ICML 2022</span><span class="pub-tag">会议</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2022" data-type="journal" data-title="Knowledge Distill">
+          <span class="pub-title"><a href="#">Beyond Logits: Layer-wise Knowledge Distillation for Transformers</a></span>
+          <p class="pub-authors"><span class="me">Zhang San</span>, Zhao Liu, Li Si</p>
+          <p class="pub-meta"><span class="venue">IEEE TNNLS, 2022</span><span class="pub-tag">期刊</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2021" data-type="conference" data-title="Few Shot">
+          <span class="pub-title"><a href="#">Few-Shot Named Entity Recognition with Prompt-Based Tuning</a></span>
+          <p class="pub-authors"><span class="me">Zhang San</span>, Wei Chen</p>
+          <p class="pub-meta"><span class="venue">EMNLP 2021</span><span class="pub-tag">会议</span></p>
+        </li> -->
+
+      </ul>
+      <p class="no-pubs" id="noPubs">未找到符合条件的论文。</p>
+    </div>
+  </section>
+
+  <!-- ===== 教学 ===== -->
+  <section id="teaching">
+    <div class="container">
+      <h2 class="section-title">教学</h2>
+      <p>2024 春：移动商务应用开发 · 本科 · 45 学时</p>
+      <p>2024 秋：企业前沿技术 / 企业实践指导 · 本科 · 60 学时</p>
+      <p>2025 春：移动商务应用开发 · 本科 · 45 学时</p>
+      <p>2025 秋：物联网工程设计与实现 · 本科 · 45 学时</p>
+      <p>2026 春：面向对象程序设计（Java）· 本科 · 45 学时</p>
+      <p>2026 秋：大模型基础与前沿 · 本科 · 45 学时</p>
+    </div>
+  </section>
+
+  <!-- ===== 审稿 / 学术服务 ===== -->
+  <section id="reviewer">
+    <div class="container">
+      <h2 class="section-title">学术服务</h2>
+
+      <div class="review-year">
+        <h3>程序委员会委员 / 审稿人</h3>
+        <p>2020: ACL, EMNLP, COLING, CCKS, AACL-IJCNLP, AAAI</p>
+        <p>2021: AAAI, ACL-IJCNLP, EACL, NAACL, EMNLP</p>
+        <p>2022: ACL, AAAI, NAACL, COLING, EMNLP, AACL-IJCNLP, KDD</p>
+        <p>2023: ACL, AAAI, EMNLP, AACL-IJCNLP, KDD, ECAI, ICONIP, EACL</p>
+        <p>2024: ACL, AAAI, COLING, ICONIP, SDM, COLM, NAACL</p>
+        <p>2025: ARR AR(ACL, EMNLP), NeurIPS, AAAI, COLING, AACL-IJCNLP, COLM, NLPCC</p>
+        <p>2026: ARR AR(Feb., May.), AAAI, ACL SRW, IJCAI, IJCAI-ECAI 2026 Joint Workshop on GENAIK and NORA, EACL, COLM, NLPCC, ICONIP</p>
+        <h3>期刊审稿人</h3>
+        Computers in Biology and Medicine, ACM Transactions on Asian and Low-Resource Language Information Processing (TALLIP), Experts System with Applications (ESWA), Information Processing and Management (IPM), AI Open, Computers in Human Behavior Reports, Entertainment Computing, Knowledge-Based Systems (KBS), Journal of Advanced Transportation, Engineering Reports, Engineering Applications of Artificial Intelligence, WIREs Data Mining and Knowledge Discovery, Artificial Intelligence Review, IEEE Transactions on Evolutionary Computation, Scientific Reports
+        <h3>学会委员</h3>
+        <p>(1) 中国中文信息学会大模型与生成专委会</p>
+        <p>(2) 中国中文信息学会青年工作委员会</p>
+        <p>(3) 中国人工智能学会智能服务专委会</p>
+        <p>(4) 上海市计算机学会计算机视觉专委会</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 联系方式 ===== -->
+  <!-- <section id="contact">
+    <div class="container">
+      <h2 class="section-title">联系</h2>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-item"><span class="label">邮箱：</span><a href="mailto:jzx@sbs.edu.cn">jzx AT sbs.edu.cn</a></div>
+          <div class="contact-item"><span class="label">地址：</span>上海市奉贤区东方美谷路 6333 号 行政楼 518 室</div>
+          <div class="contact-item"><span class="label">单位：</span>上海商学院 商务信息学院</div>
+          <div class="contact-links">
+            <a href="#">Google Scholar</a>
+            <a href="#">GitHub</a>
+            <a href="#">DBLP</a>
+            <a href="#">简历 (PDF)</a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <h3>邮件联系</h3>
+          <div class="form-group">
+            <label for="name">姓名</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">邮箱</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">主题</label>
+            <input type="text" id="subject" name="subject" required />
+          </div>
+          <div class="form-group">
+            <label for="message">内容</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn">发送邮件</button>
+          <p class="form-status" id="formStatus"></p>
+        </form>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ===== 页脚 ===== -->
+  <!-- <footer>
+    <div class="container">
+      <p>© <span id="year">2026</span> 蒋卓轩 · 上海商学院</p>
+      <p style="margin-top: 6px;">
+        <a href="#about">关于</a>
+        <a href="#research">研究方向</a>
+        <a href="#publications">论文</a>
+        <a href="#teaching">教学</a>
+        <a href="#reviewer">学术服务</a>
+        <a href="#contact">联系</a>
+      </p>
+    </div>
+  </footer> -->
+
+  <button class="back-to-top" id="backToTop" aria-label="返回顶部">↑</button>
+
+  <script>
+    // ===== 移动端菜单 =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ===== 滚动监听：高亮导航 + 返回顶部 =====
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = navLinks.querySelectorAll('li a:not(.nav-lang)');
+    const backToTop = document.getElementById('backToTop');
+
+    function onScroll() {
+      const pos = window.scrollY + 80;
+      sections.forEach(sec => {
+        if (pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight) {
+          navItems.forEach(item => {
+            item.classList.toggle('active', item.getAttribute('href') === '#' + sec.id);
+          });
+        }
+      });
+      backToTop.classList.toggle('show', window.scrollY > 400);
+    }
+
+    window.addEventListener('scroll', onScroll);
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ===== 论文筛选与排序 =====
+    const pubList = document.getElementById('pubList');
+    const pubs = Array.from(pubList.querySelectorAll('.pub-item'));
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const sortSelect = document.getElementById('sortSelect');
+    const noPubs = document.getElementById('noPubs');
+    let currentFilter = 'all';
+
+    function renderPubs() {
+      if (!sortSelect) return;
+      const mode = sortSelect.value;
+      const sorted = [...pubs].sort((a, b) => {
+        if (mode === 'year-asc') return a.dataset.year - b.dataset.year;
+        if (mode === 'year-desc') return b.dataset.year - a.dataset.year;
+        if (mode === 'title') return a.dataset.title.localeCompare(b.dataset.title);
+        return 0;
+      });
+
+      let visibleCount = 0;
+      sorted.forEach(pub => {
+        const match = currentFilter === 'all' || pub.dataset.type === currentFilter;
+        pub.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      noPubs.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderPubs();
+      });
+    });
+
+    if (sortSelect) sortSelect.addEventListener('change', renderPubs);
+    renderPubs();
+
+    // ===== 联系表单：打开邮件客户端 =====
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      const formStatus = document.getElementById('formStatus');
+
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+          formStatus.textContent = '请填写所有字段。';
+          formStatus.style.display = 'block';
+          return;
+        }
+
+        window.location.href = 'mailto:jzx@sbs.edu.cn?subject=' +
+          encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent('姓名：' + name + '\n邮箱：' + email + '\n\n' + message);
+
+        formStatus.textContent = '已为你打开邮件客户端，请确认发送。';
+        formStatus.style.display = 'block';
+        contactForm.reset();
+      });
+    }
+
+    // ===== 页脚年份 =====
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

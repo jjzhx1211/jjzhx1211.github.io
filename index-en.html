@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zhuoxuan Jiang | Shanghai Business School</title>
+  <meta name="description" content="Zhuoxuan Jiang's academic homepage - Artificial Intelligence and Machine Learning" />
+  <style>
+    /* ===== Base ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --text: #111;
+      --text-light: #555;
+      --muted: #888;
+      --line: #ddd;
+      --bg: #fff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 64px;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 56px 0;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      max-width: 1100px;
+    }
+
+    .nav-brand {
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .nav-lang {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ===== Profile header ===== */
+    .profile {
+      padding: 100px 0 40px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-inner {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-placeholder {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #eee;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: var(--muted);
+    }
+
+    .profile h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .profile .role {
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .profile .bio {
+      font-size: 0.95rem;
+      color: var(--text);
+      max-width: 700px;
+    }
+
+    .profile .meta {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .profile .meta a {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    /* ===== Research interests ===== */
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .interest {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 4px 14px;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: #fafafa;
+    }
+
+    .interest:hover {
+      background: #f0f0f0;
+    }
+
+    /* ===== Publications ===== */
+    .pub-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .filter-btn {
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .filter-btn.active {
+      color: var(--text);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .pub-list {
+      list-style: none;
+    }
+
+    .pub-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pub-item:last-child {
+      border-bottom: none;
+    }
+
+    .pub-title {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .pub-authors {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .pub-authors .me {
+      text-decoration: underline;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .pub-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .pub-meta .venue {
+      font-style: italic;
+    }
+
+    .pub-tag {
+      margin-left: 8px;
+      color: var(--text-light);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 0 8px;
+      font-size: 0.78rem;
+    }
+
+    .no-pubs {
+      color: var(--text-light);
+      padding: 24px 0;
+      display: none;
+    }
+
+    /* ===== Teaching ===== */
+    .course {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .course:last-child {
+      border-bottom: none;
+    }
+
+    .course h3 {
+      font-size: 1.05rem;
+      margin-bottom: 2px;
+    }
+
+    .course .course-meta {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .course p {
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    /* ===== Reviewer / Academic Service ===== */
+    .review-year {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .review-year:last-child {
+      border-bottom: none;
+    }
+
+    .review-year h3 {
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .review-year p {
+      font-size: 0.92rem;
+      margin-bottom: 2px;
+    }
+
+    .review-year a {
+      text-decoration: underline;
+    }
+
+    /* ===== Contact ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-item {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .contact-item .label {
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .contact-item a {
+      text-decoration: underline;
+    }
+
+    .contact-links {
+      margin-top: 8px;
+    }
+
+    .contact-links a {
+      margin-right: 16px;
+      text-decoration: underline;
+      font-size: 0.92rem;
+    }
+
+    .contact-form h3 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--bg);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #999;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+      padding: 8px 24px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #333;
+      text-decoration: none;
+    }
+
+    .form-status {
+      display: none;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #2c6e49;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* ===== Back to top ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      font-family: inherit;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: #f0f0f0;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 700px) {
+      .profile-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .avatar,
+      .avatar-placeholder {
+        margin: 0 auto;
+      }
+
+      .profile .bio,
+      .profile .meta {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--bg);
+        padding: 12px 24px;
+        gap: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .pub-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#top" class="nav-brand">Zhuoxuan Jiang</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰ Menu</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="active">About</a></li>
+        <!-- <li><a href="#research">Research</a></li> -->
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#reviewer">Service</a></li>
+        <!-- <li><a href="#contact">Contact</a></li> -->
+        <li><a href="index.html" class="nav-lang">中文</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== Profile header ===== -->
+  <header class="profile" id="top">
+    <div class="container profile-inner">
+      <div>
+        <!-- Replace placeholder with photo: <img class="avatar" src="your-photo.jpg" alt="San Zhang" /> -->
+        <div class="avatar-placeholder">Z</div>
+      </div>
+      <div>
+        <h1>Zhuoxuan Jiang</h1>
+        <p class="role">Lecturer/Researcher · Master Supervisor · Faculty of Business Information, Shanghai Business School</p>
+        <p class="bio">
+          Research interests include artificial intelligence, machine learning, and natural language processing which are applied in the field of education, business progress management and embodied applications.
+        </p>
+        <p class="meta">
+          Email: <a href="mailto:jzx@sbs.edu.cn">jzx AT sbs.edu.cn</a><br />
+          Office: Room 518, Administrative Building, No. 6333 Dongfangmeigu Road, Fengxian District, Shanghai
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== About ===== -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About</h2>
+      <p>
+        Zhuoxuan Jiang is a Lecturer/Researcher and Master Supervisor at the Faculty of Business Information, <i>Shanghai Business School</i>. He received his Ph.D. degrees from Peking University in 2018. He was a visiting student at Nanyang Technological University from 2016 to 2017,  worked in IBM Research-China (2018-2020), JD AI Research (2020-2021), Tencent Youtu Lab (2021-2022), Learnable.ai (a startup, 2022-2024) and joined the faculty of Shanghai Business School in 2024.
+      </p>
+      <!-- <p style="margin-top: 12px;"> -->
+        <!-- He has led more than 10 research projects funded by the National Natural Science Foundation of China (including key and general programs). He has published over 60 papers in top venues such as NeurIPS, ICML, ACL, and CVPR, with more than 5,000 Google Scholar citations. He serves as a program committee member and reviewer for several international conferences.
+        He is the member of Chinese Information Processing Society of China (the Large Model and Intelligent Generation Special Committee, the Youth Work Committee), Chinese Association for Artificial Intelligence (the Intelligent Service Special Committee), Shanghai Computer Society (the Computer Vision Special Committee). -->
+      <!-- </p> -->
+      <p style="margin-top: 12px;">
+        The group welcomes master and bachelor's students. If you are passionate about <u>large language models</u>, <u>agent AI</u>, <u>embodied intelligence</u> and <u>their applications</u>, please feel free to contact him by email.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== Research ===== -->
+  <!-- <section id="research">
+    <div class="container">
+      <h2 class="section-title">Research Interests</h2>
+      <div class="interests">
+        <span class="interest">Deep Learning</span>
+        <span class="interest">Machine Learning</span>
+        <span class="interest">Natural Language Processing</span>
+        <span class="interest">Computer Vision</span>
+        <span class="interest">Medical Image Analysis</span>
+        <span class="interest">Graph Learning</span>
+        <span class="interest">Efficient Models & Inference</span>
+      </div>
+      <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 16px;">
+        Specific topics include: theory and optimization of deep neural networks, pre-trained language models, few-shot and transfer learning, vision-language multimodal understanding, AI-assisted medical diagnosis, and model compression & quantization.
+      </p>
+    </div>
+  </section> -->
+
+  <!-- ===== Publications ===== -->
+  <section id="publications">
+    <div class="container">
+      <h2 class="section-title">Selected Publications</h2>
+      <!-- <div class="pub-toolbar">
+        <div>
+          <button class="filter-btn active" data-filter="all">All</button><span style="color: var(--line);">|</span>
+          <button class="filter-btn" data-filter="journal">Journal</button><span style="color: var(--line);">|</span>
+          <button class="filter-btn" data-filter="conference">Conference</button><span style="color: var(--line);">|</span>
+          <button class="filter-btn" data-filter="preprint">Preprint</button>
+        </div>
+        <div>
+          Sort:
+          <select id="sortSelect" style="background: none; border: none; font-family: inherit; font-size: 0.9rem; color: var(--text-light); cursor: pointer;">
+            <option value="year-desc">Year (newest first)</option>
+            <option value="year-asc">Year (oldest first)</option>
+            <option value="title">Title</option>
+          </select>
+        </div>
+      </div> -->
+      <ul class="pub-list" id="pubList">
+        <p>[1] Zhuoxuan Jiang, Tianyang Zhang, Shengguang Bai, Lin Lin, Haotian Zhang, Yinong Xun, Jiawei Ren, Wen Si, Shaohua Zhang. Expert Systems with Applications, 130961, 2026</p>
+        <p>[2] Zhuoxuan Jiang, Yanpeng Li, Tianyang Zhang, Jing Chen, Yong Li, Mo Guang, Wen Si, Shaohua Zhang. GeoProblem Factory: A Visual Interaction System for Solvable and Controllable Geometric Problem Generation by Leveraging Symbolic Deduction Engine. AAAI 2026. (CCF-A)</p>
+        <p>[3] Zhuoxuan Jiang*, Tianyang Zhang, Peiyan Peng, Jing Chen, Yinong Xun, Haotian Zhang, Lichi Li, Yong Li, Shaohua Zhang. Towards Generating Controllable and Solvable Geometry Problem by Leveraging Symbolic Deduction Engine. ACL 2025. (CCF-A)</p>
+        <p>[4] Zhuoxuan Jiang*, Tianyang Zhang, Haotian Zhang, Yinong Xun, Yang Liu, Dehua Feng, Wen Si, and Shaohua Zhang. LLMA4ITOps: A Lightweight LLM-based Multi-Agent Framework for IT Operations and Maintenance. NLPCC 2025. (CCF-C).</p>
+        <p>[5] Tianyang Zhang, Zhuoxuan Jiang*, Haotian Zhang, Lin Lin, Shaohua Zhang. MathMistake Checker: A Comprehensive Demonstration for Step-by-Step Math Problem Mistake Finding by Prompt-Guided LLMs. AAAI 2025. (CCF-A)</p>
+        <p>[6] Tianyang Zhang, Zhuoxuan Jiang*, Shengguang Bai, Tianrui Zhang, Lin Lin, Yang Liu, Jiawei Ren. RAG4ITOps: A Supervised Fine-Tunable and Comprehensive RAG Framework for IT Operations and Maintenance. EMNLP 2024. (CCF-B)</p>
+        <p>[7] Zhuoxuan Jiang*, Haoyuan Peng, Shanshan Feng, Fan Li, Dongsheng Li. LLMs can Find Mathematical Reasoning Mistakes by Pedagogical Chain-of-Thought. IJCAI 2024. (CCF-A)</p>
+        <p>[8] Ziming Huang, Zhuoxuan Jiang*, Ke Wang, Juntao Li, Shanshan Feng, Xian-Ling Mao. Gated Mechanism enhanced Multi-task Learning for Dialog Routing. COLING 2022. (CCF-B)</p>
+        <p>[9] Yuan Liang, Zhuoxuan Jiang, Di Yin, Bo Ren. RAAT: Relation-Augmented Attention Transformer for Relation Modeling in Document-Level Event Extraction. NAACL 2022. (CCF-B)</p>
+        <p>[10] Sanshi Yu, Zhuoxuan Jiang*, Dongdong Chen, Shanshan Feng, Dongsheng Li, Qi Liu, Jinfeng Yi. Leveraging Tripartite Interaction Information from Live Stream E-Commerce for Improving Product Recommendation. KDD 2021. (CCF-A)</p>
+        <p>[11] Zhuoxuan Jiang, Shanshan Feng, Gao Cong, Chunyan Miao, Xiaoming Li. A Novel Cascade Model for Learning Latent Similarity from Heterogeneous Sequential Data of MOOC. EMNLP 2017. (CCF-B)</p>
+        <p>[12] Zhuoxuan Jiang, Yan Zhang, Xiaoming Li. Learning behavior analysis and prediction based on MOOC data, Journal of computer research and development 52 (3), 614-628</p>
+        <p>*Corresponding author</p>
+        <!-- <li class="pub-item" data-year="2025" data-type="conference" data-title="Adaptive Memory">
+          <span class="pub-title"><a href="#">Adaptive Memory-Augmented Transformers for Long-Context Reasoning</a></span>
+          <p class="pub-authors"><span class="me">San Zhang</span>, Si Li, Wu Wang</p>
+          <p class="pub-meta"><span class="venue">NeurIPS 2025</span><span class="pub-tag">Conference</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2025" data-type="journal" data-title="Federated Medical">
+          <span class="pub-title"><a href="#">Federated Medical Image Segmentation via Dynamic Client Adaptation</a></span>
+          <p class="pub-authors">Liu Zhao, <span class="me">San Zhang</span>, Zhou Qian</p>
+          <p class="pub-meta"><span class="venue">IEEE Transactions on Medical Imaging, 2025</span><span class="pub-tag">Journal</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2024" data-type="conference" data-title="Contrastive">
+          <span class="pub-title"><a href="#">Contrastive Learning for Low-Resource Machine Translation</a></span>
+          <p class="pub-authors"><span class="me">San Zhang</span>, Chen Wei, Sun Yi</p>
+          <p class="pub-meta"><span class="venue">ACL 2024</span><span class="pub-tag">Conference</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2024" data-type="journal" data-title="GNN Graph">
+          <span class="pub-title"><a href="#">Graph Neural Networks with Learnable Structural Priors</a></span>
+          <p class="pub-authors">Wang Wu, <span class="me">San Zhang</span>, Lin Zhao</p>
+          <p class="pub-meta"><span class="venue">IEEE TKDE, 2024</span><span class="pub-tag">Journal</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2024" data-type="preprint" data-title="Scaling Law">
+          <span class="pub-title"><a href="#">Scaling Laws for Sparse Mixture-of-Experts Language Models</a></span>
+          <p class="pub-authors"><span class="me">San Zhang</span>, Si Li, Wei Chen, Wang Wu</p>
+          <p class="pub-meta"><span class="venue">arXiv:2410.xxxxx</span><span class="pub-tag">Preprint</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2023" data-type="conference" data-title="Vision Language">
+          <span class="pub-title"><a href="#">Bridging Vision and Language with Unified Attention</a></span>
+          <p class="pub-authors">Zhou Qian, <span class="me">San Zhang</span>, Zhao Liu</p>
+          <p class="pub-meta"><span class="venue">CVPR 2023</span><span class="pub-tag">Conference</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2023" data-type="journal" data-title="Interpretable">
+          <span class="pub-title"><a href="#">Interpretable Diagnosis via Attention-Guided Chest X-Ray Analysis</a></span>
+          <p class="pub-authors"><span class="me">San Zhang</span>, Sun Yi, Chen Wei, Zhao Lin</p>
+          <p class="pub-meta"><span class="venue">Pattern Recognition, 2023</span><span class="pub-tag">Journal</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2022" data-type="conference" data-title="Meta Learning">
+          <span class="pub-title"><a href="#">Meta-Learning with Task-Adaptive Representations</a></span>
+          <p class="pub-authors">Li Si, <span class="me">San Zhang</span>, Wang Wu</p>
+          <p class="pub-meta"><span class="venue">ICML 2022</span><span class="pub-tag">Conference</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2022" data-type="journal" data-title="Knowledge Distill">
+          <span class="pub-title"><a href="#">Beyond Logits: Layer-wise Knowledge Distillation for Transformers</a></span>
+          <p class="pub-authors"><span class="me">San Zhang</span>, Liu Zhao, Li Si</p>
+          <p class="pub-meta"><span class="venue">IEEE TNNLS, 2022</span><span class="pub-tag">Journal</span></p>
+        </li>
+
+        <li class="pub-item" data-year="2021" data-type="conference" data-title="Few Shot">
+          <span class="pub-title"><a href="#">Few-Shot Named Entity Recognition with Prompt-Based Tuning</a></span>
+          <p class="pub-authors"><span class="me">San Zhang</span>, Chen Wei</p>
+          <p class="pub-meta"><span class="venue">EMNLP 2021</span><span class="pub-tag">Conference</span></p>
+        </li> -->
+
+      </ul>
+      <p class="no-pubs" id="noPubs">No matching publications found.</p>
+    </div>
+  </section>
+
+  <!-- ===== Teaching ===== -->
+  <section id="teaching">
+    <div class="container">
+      <h2 class="section-title">Teaching</h2>
+      <p>2024 Spring: Development of Mobile Business Applications · Undergraduate · 45 hours</p>
+      <p>2024 Fall: Enterprise Cutting-edge Technology / Enterprise Practice Guidelines · Undergraduate · 60 hours</p>
+      <p>2025 Spring: Development of Mobile Business Applications · Undergraduate · 45 hours</p>
+      <p>2025 Fall: Internet of Things Engineering Design and Implementation · Undergraduate · 45 hours</p>
+      <p>2026 Spring: Object-oriented Programming and Java · Undergraduate · 45 hours</p>
+      <p>2026 Fall: Foundations and Frontiers of Large Models · Undergraduate · 45 hours</p>
+    </div>
+  </section>
+
+  <!-- ===== Reviewer / Academic Service ===== -->
+  <section id="reviewer">
+    <div class="container">
+      <h2 class="section-title">Academic Service</h2>
+
+      <div class="review-year">
+        <h3>PC Member / Reviewer</h3>
+        <p>2020: ACL, EMNLP, COLING, CCKS, AACL-IJCNLP, AAAI</p>
+        <p>2021: AAAI, ACL-IJCNLP, EACL, NAACL, EMNLP</p>
+        <p>2022: ACL, AAAI, NAACL, COLING, EMNLP, AACL-IJCNLP, KDD</p>
+        <p>2023: ACL, AAAI,, EMNLP, AACL-IJCNLP, KDD, ECAI, ICONIP, EACL</p>
+        <p>2024: ACL, AAAI, COLING, ICONIP, SDM, COLM, NAACL</p>
+        <p>2025: ARR AR(ACL, EMNLP) , NeurlPS, AAAI, COLING, AACL-IJCNLP, COLM, NLPCC</p>
+        <p>2026: ARR AR(Feb., May.), AAAI, ACL SRW, IJCAI, IJCAI-ECAI 2026 Joint Workshop on GENAIK and NORA, EACL, COLM, NLPCC, ICONIP</p>
+        <h3>Journal Reviewer</h3>
+        Computers in Biology and Medicine, ACM Transactions on Asian and Low-Resource Language Information Processing (TALLIP), Experts System with Applications (ESWA), Information Processing and Management (IPM), AI Open, Computers in Human Behavior Reports, Entertainment Computing, Knowledge-Based Systems (KBS), Journal of Advanced Transportation, Engineering Reports, Engineering Applications of Artificial Intelligence, WIREs Data Mining and Knowledge Discovery, Artificial Intelligence Review, IEEE Transactions on Evolutionary Computation, Scientific Reports
+        <h3>Committee Member</h3>
+        <p>(1) The Large Model and Intelligent Generation Special Committee of Chinese Information Processing Society of China</p>
+        <p>(2) The Youth Work Committee of Chinese Information Processing Society of China</p>
+        <p>(3) The Intelligent Service Special Committee of Chinese Association for Artificial Intelligence</p>
+        <p>(4) The Computer Vision Special Committee of Shanghai Computer Society</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <!-- <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-item"><span class="label">Email:</span> <a href="mailto:jzx@sbs.edu.cn">jzx AT sbs.edu.cn</a></div>
+          <div class="contact-item"><span class="label">Address:</span> Room 518, Administrative Building, No. 6333 Dongfangmeigu Road, Fengxian District, Shanghai</div>
+          <div class="contact-item"><span class="label">Affiliation:</span> Faculty of Business Information, Shanghai Business School</div>
+          <div class="contact-links">
+            <a href="#">Google Scholar</a>
+            <a href="#">GitHub</a>
+            <a href="#">DBLP</a>
+            <a href="#">CV (PDF)</a>
+          </div>
+        </div>
+        <!-- <form class="contact-form" id="contactForm">
+          <h3>Send an Email</h3>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn">Send Email</button>
+          <p class="form-status" id="formStatus"></p>
+        </form> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </section> --> -->
+
+  <!-- ===== Footer ===== -->
+  <!-- <footer>
+    <div class="container">
+      <p>© <span id="year">2026</span> Zhuoxuan Jiang · Shanghai Business School</p>
+      <p style="margin-top: 6px;">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#reviewer">Reviewer</a>
+        <a href="#contact">Contact</a>
+      </p>
+    </div>
+  </footer> -->
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // ===== Mobile menu =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ===== Scroll spy + back to top =====
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = navLinks.querySelectorAll('li a:not(.nav-lang)');
+    const backToTop = document.getElementById('backToTop');
+
+    function onScroll() {
+      const pos = window.scrollY + 80;
+      sections.forEach(sec => {
+        if (pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight) {
+          navItems.forEach(item => {
+            item.classList.toggle('active', item.getAttribute('href') === '#' + sec.id);
+          });
+        }
+      });
+      backToTop.classList.toggle('show', window.scrollY > 400);
+    }
+
+    window.addEventListener('scroll', onScroll);
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ===== Publication filter & sort =====
+    const pubList = document.getElementById('pubList');
+    const pubs = Array.from(pubList.querySelectorAll('.pub-item'));
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const sortSelect = document.getElementById('sortSelect');
+    const noPubs = document.getElementById('noPubs');
+    let currentFilter = 'all';
+
+    function renderPubs() {
+      const mode = sortSelect.value;
+      const sorted = [...pubs].sort((a, b) => {
+        if (mode === 'year-asc') return a.dataset.year - b.dataset.year;
+        if (mode === 'year-desc') return b.dataset.year - a.dataset.year;
+        if (mode === 'title') return a.dataset.title.localeCompare(b.dataset.title);
+        return 0;
+      });
+
+      let visibleCount = 0;
+      sorted.forEach(pub => {
+        const match = currentFilter === 'all' || pub.dataset.type === currentFilter;
+        pub.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      noPubs.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderPubs();
+      });
+    });
+
+    sortSelect.addEventListener('change', renderPubs);
+    renderPubs();
+
+    // ===== Contact form: open mail client =====
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !subject || !message) {
+        formStatus.textContent = 'Please fill in all fields.';
+        formStatus.style.display = 'block';
+        return;
+      }
+
+      window.location.href = 'mailto:jzx@sbs.edu.cn?subject=' +
+        encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+
+      formStatus.textContent = 'Your email client has been opened. Please confirm to send.';
+      formStatus.style.display = 'block';
+      contactForm.reset();
+    });
+
+    // ===== Footer year =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

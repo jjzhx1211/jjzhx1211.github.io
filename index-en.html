@@ -44,7 +44,7 @@
     }
 
     .container {
-      max-width: 940px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -558,7 +558,7 @@
       </div>
       <div>
         <h1>Zhuoxuan Jiang</h1>
-        <p class="role">Lecturer/Researcher · Master Supervisor · Faculty of Business Information, Shanghai Business School</p>
+        <p class="role">Lecturer / Researcher · Master Supervisor · Faculty of Business Information, Shanghai Business School</p>
         <p class="bio">
           Research interests include artificial intelligence, machine learning, and natural language processing which are applied in the fields of education, business progress management and embodied applications.
         </p>
@@ -777,7 +777,8 @@
   </section>
 
   <!-- ===== Contact ===== -->
-  <!-- <section id="contact">
+  <!--
+  <section id="contact">
     <div class="container">
       <h2 class="section-title">Contact</h2>
       <div class="contact-grid">
@@ -792,7 +793,7 @@
             <a href="#">CV (PDF)</a>
           </div>
         </div>
-        <!-- <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm">
           <h3>Send an Email</h3>
           <div class="form-group">
             <label for="name">Name</label>
@@ -812,25 +813,22 @@
           </div>
           <button type="submit" class="btn">Send Email</button>
           <p class="form-status" id="formStatus"></p>
-        </form> -->
-      <!-- </div> -->
-    <!-- </div> -->
-  <!-- </section> --> -->
+        </form>
+      </div>
+    </div>
+  </section>
+  -->
 
   <!-- ===== Footer ===== -->
-  <!-- <footer>
+  <footer>
     <div class="container">
-      <p>© <span id="year">2026</span> Zhuoxuan Jiang · Shanghai Business School</p>
-      <p style="margin-top: 6px;">
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#reviewer">Reviewer</a>
-        <a href="#contact">Contact</a>
+      <p>
+        © <span id="year">2026</span>
+        <span id="busuanzi_container_site_pv" style="display:none">Total visits: <span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_uv" style="display:none"> · Unique visitors: <span id="busuanzi_value_site_uv"></span></span>
       </p>
     </div>
-  </footer> -->
+  </footer>
 
   <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
@@ -873,6 +871,7 @@
     let currentFilter = 'all';
 
     function renderPubs() {
+      if (!sortSelect) return;
       const mode = sortSelect.value;
       const sorted = [...pubs].sort((a, b) => {
         if (mode === 'year-asc') return a.dataset.year - b.dataset.year;
@@ -900,37 +899,89 @@
       });
     });
 
-    sortSelect.addEventListener('change', renderPubs);
+    if (sortSelect) sortSelect.addEventListener('change', renderPubs);
     renderPubs();
 
     // ===== Contact form: open mail client =====
     const contactForm = document.getElementById('contactForm');
-    const formStatus = document.getElementById('formStatus');
+    if (contactForm) {
+      const formStatus = document.getElementById('formStatus');
 
-    contactForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const subject = document.getElementById('subject').value.trim();
-      const message = document.getElementById('message').value.trim();
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
 
-      if (!name || !email || !subject || !message) {
-        formStatus.textContent = 'Please fill in all fields.';
+        if (!name || !email || !subject || !message) {
+          formStatus.textContent = 'Please fill in all fields.';
+          formStatus.style.display = 'block';
+          return;
+        }
+
+        window.location.href = 'mailto:jzx@sbs.edu.cn?subject=' +
+          encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+
+        formStatus.textContent = 'Your email client has been opened. Please confirm to send.';
         formStatus.style.display = 'block';
-        return;
-      }
-
-      window.location.href = 'mailto:jzx@sbs.edu.cn?subject=' +
-        encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
-
-      formStatus.textContent = 'Your email client has been opened. Please confirm to send.';
-      formStatus.style.display = 'block';
-      contactForm.reset();
-    });
+        contactForm.reset();
+      });
+    }
 
     // ===== Footer year =====
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+
+  <!-- ===== Busuanzi visitor counter (replacement: full https, works for local file:// and online deploy) ===== -->
+  <script>
+    (function () {
+      var host = 'https://busuanzi.ibruce.info';
+      var used = false;
+      function update(data) {
+        var map = { site_pv: 'busuanzi_value_site_pv', page_pv: 'busuanzi_value_page_pv', site_uv: 'busuanzi_value_site_uv' };
+        for (var key in map) {
+          var el = document.getElementById(map[key]);
+          if (el && data[key] !== undefined) {
+            var val = parseInt(data[key], 10) || 0;
+            el.textContent = Math.max(0, val - 1); // count from 0 (exclude current visit)
+          }
+        }
+      }
+      function show() {
+        ['site_pv', 'page_pv', 'site_uv'].forEach(function (k) {
+          var c = document.getElementById('busuanzi_container_' + k);
+          if (c) c.style.display = 'inline';
+        });
+      }
+      function hide() {
+        ['site_pv', 'page_pv', 'site_uv'].forEach(function (k) {
+          var c = document.getElementById('busuanzi_container_' + k);
+          if (c) c.style.display = 'none';
+        });
+      }
+      function load() {
+        if (used) return;
+        used = true;
+        var cb = 'BusuanziCallback_' + Math.floor(1e15 * Math.random());
+        var timer = setTimeout(hide, 5000);
+        window[cb] = function (data) {
+          clearTimeout(timer);
+          try { update(data); show(); } catch (e) { hide(); }
+          try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+        };
+        var s = document.createElement('script');
+        s.src = host + '/busuanzi?jsonpCallback=' + cb;
+        document.head.appendChild(s);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', load);
+      } else {
+        load();
+      }
+    })();
   </script>
 </body>
 </html>
